@@ -42,6 +42,8 @@ function getStatusLabel(state) {
 }
 
 function renderPlayerStatus() {
+  if (!playerStatus) return;
+
   const name = sessionStorage.getItem('halloween-player-name');
   if (!name) {
     document.body.classList.remove('player-safe', 'player-danger', 'player-waiting');
@@ -73,6 +75,8 @@ function renderPlayerStatus() {
 }
 
 function renderAdminList() {
+  if (!playerList) return;
+
   const state = loadState();
   const names = Object.keys(state.players).sort((a, b) => a.localeCompare(b));
 
@@ -116,48 +120,64 @@ function updatePlayerState(name, status) {
   renderPlayerStatus();
 }
 
-playerLoginForm.addEventListener('submit', (event) => {
-  event.preventDefault();
+if (playerLoginForm && playerNameInput) {
+  playerLoginForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
-  const name = normaliseName(playerNameInput.value);
-  if (!name) {
-    return;
-  }
+    const name = normaliseName(playerNameInput.value);
+    if (!name) {
+      return;
+    }
 
-  const state = loadState();
-  if (!state.players[name]) {
-    state.players[name] = 'waiting';
-    saveState(state);
-  }
+    const state = loadState();
+    if (!state.players[name]) {
+      state.players[name] = 'waiting';
+      saveState(state);
+    }
 
-  sessionStorage.setItem('halloween-player-name', name);
+    sessionStorage.setItem('halloween-player-name', name);
+    renderPlayerStatus();
+    playerNameInput.value = '';
+    window.location.href = 'playerPage.html';
+  });
+}
+
+if (adminLoginForm && adminUsernameInput && adminPasswordInput) {
+  adminLoginForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const username = adminUsernameInput.value.trim();
+    const password = adminPasswordInput.value;
+
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+      sessionStorage.setItem('halloween-admin-logged-in', 'true');
+      window.location.href = 'adminPage.html';
+    } else {
+      alert('Incorrect admin username or password.');
+    }
+  });
+}
+
+if (adminLogoutButton) {
+  adminLogoutButton.addEventListener('click', () => {
+    if (adminPanel) {
+      adminPanel.classList.add('hidden');
+    }
+    sessionStorage.removeItem('halloween-admin-logged-in');
+    window.location.href = 'index.html';
+  });
+}
+
+if (adminPanel && sessionStorage.getItem('halloween-admin-logged-in') === 'true') {
+  adminPanel.classList.remove('hidden');
+}
+
+if (playerStatus) {
   renderPlayerStatus();
-  playerNameInput.value = '';
-});
-
-adminLoginForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-
-  const username = adminUsernameInput.value.trim();
-  const password = adminPasswordInput.value;
-
-  if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
-    adminPanel.classList.remove('hidden');
-    renderAdminList();
-  } else {
-    alert('Incorrect admin username or password.');
-  }
-});
-
-adminLogoutButton.addEventListener('click', () => {
-  adminPanel.classList.add('hidden');
-  adminPasswordInput.value = ADMIN_PASSWORD;
-});
-
-renderPlayerStatus();
+}
 
 const state = loadState();
-if (Object.keys(state.players).length > 0) {
+if (playerList && Object.keys(state.players).length > 0) {
   renderAdminList();
 }
 
