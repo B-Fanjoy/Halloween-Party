@@ -1,0 +1,249 @@
+:root {
+  --bg: #140f1d;
+  --card: rgba(26, 20, 34, 0.9);
+  --text: #f4ebff;
+  --muted: #d8c7f7;
+  --accent: #ff7a18;
+  --safe: #27d17f;
+  --danger: #ff4d4d;
+  --waiting: #f7b84b;
+  --line: rgba(255, 255, 255, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  background: radial-gradient(circle at top, #2b173d 0%, var(--bg) 55%);
+  color: var(--text);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.player-safe {
+  background: linear-gradient(180deg, #0d2d1f, #0b6d45 40%, #0b4d34 100%);
+}
+
+body.player-danger {
+  background: linear-gradient(180deg, #3a0d17, #7c1127 45%, #4d071a 100%);
+}
+
+body.player-waiting {
+  background: linear-gradient(180deg, #3a2a0f, #9c6a14 45%, #6e490d 100%);
+}
+
+.app-shell {
+  width: min(100%, 1100px);
+}
+
+.topbar {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(255, 122, 24, 0.18);
+  border: 1px solid rgba(255, 122, 24, 0.6);
+  color: #ffd7b4;
+  border-radius: 999px;
+  padding: 6px 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+h1 {
+  margin: 14px 0 0;
+  font-size: clamp(2rem, 4vw, 3.5rem);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  padding: 24px;
+}
+
+h2, h3 {
+  margin-top: 0;
+}
+
+p {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+label {
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+input {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(16, 14, 20, 0.7);
+  color: var(--text);
+  padding: 12px 14px;
+  font-size: 1rem;
+}
+
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(135deg, #ff7a18, #ff4d4d);
+  color: white;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button.secondary {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.status-panel {
+  margin-top: 20px;
+  border-radius: 12px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.status-panel.safe {
+  background: rgba(39, 209, 127, 0.12);
+  border-color: rgba(39, 209, 127, 0.6);
+  color: #dfffee;
+}
+
+.status-panel.danger {
+  background: rgba(255, 77, 77, 0.12);
+  border-color: rgba(255, 77, 77, 0.6);
+  color: #ffe1e1;
+}
+
+.status-panel.waiting {
+  background: rgba(247, 184, 75, 0.14);
+  border-color: rgba(247, 184, 75, 0.55);
+  color: #fff0c9;
+}
+
+.admin-panel {
+  margin-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 18px;
+}
+
+.admin-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.player-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.player-row {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 12px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+}
+
+.player-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.player-name {
+  font-weight: 700;
+}
+
+.player-state {
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.player-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.player-actions button {
+  padding: 8px 10px;
+  font-size: 0.85rem;
+  border-radius: 8px;
+}
+
+.player-actions .safe-btn {
+  background: linear-gradient(135deg, #27d17f, #1da966);
+}
+
+.player-actions .danger-btn {
+  background: linear-gradient(135deg, #ff4d4d, #d63030);
+}
+
+.player-actions .reset-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.hidden {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  .card {
+    padding: 18px;
+  }
+
+  .player-row {
+    grid-template-columns: 1fr;
+  }
+}

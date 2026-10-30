@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Halloween Party Safe / Not Safe</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <span class="badge">Halloween Party</span>
+        <h1>Safe or Not Safe</h1>
+      </header>
+
+      <main class="grid">
+        <section class="card player-card">
+          <h2>Player Login</h2>
+          <p>Choose your name and wait for the admin to assign your status.</p>
+
+          <form id="player-login-form" class="login-form">
+            <label for="player-name">Your name</label>
+            <input id="player-name" name="player-name" type="text" maxlength="25" placeholder="Enter your name" required />
+            <button type="submit">Join the game</button>
+          </form>
+
+          <div id="player-status" class="status-panel hidden" aria-live="polite"></div>
+        </section>
+
+        <section class="card admin-card">
+          <h2>Admin Login</h2>
+          <p>Default admin login: <strong>admin</strong> / <strong>halloween</strong></p>
+
+          <form id="admin-login-form" class="login-form">
+            <label for="admin-username">Username</label>
+            <input id="admin-username" type="text" value="admin" required />
+
+            <label for="admin-password">Password</label>
+            <input id="admin-password" type="password" value="halloween" required />
+
+            <button type="submit">Admin Access</button>
+          </form>
+
+          <div id="admin-panel" class="admin-panel hidden">
+            <div class="admin-toolbar">
+              <h3>Player List</h3>
+              <button id="admin-logout" class="secondary" type="button">Logout</button>
+            </div>
+
+            <div id="player-list" class="player-list"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
