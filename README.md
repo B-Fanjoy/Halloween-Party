@@ -1,37 +1,63 @@
 # Halloween Party Safe / Not Safe App
 
-A very simple static web app for a Halloween party game.
+A shared party game where players join on their phones and the admin assigns their status live.
 
 ## How it works
 
-- Players enter their name on the main page.
-- The app stores their status in the browser using `localStorage`.
-- The admin logs in separately and can set each player to:
+- Players enter their name on the landing page.
+- Their data is stored in a shared backend database, not in the browser.
+- The admin logs in separately and can mark each player as:
   - Safe
   - Not Safe
   - Waiting
-- The player's screen then changes colour automatically:
-  - Green = Safe
-  - Red = Not Safe
-  - Orange = Waiting
+- The player's screen updates automatically without a page refresh.
 
 ## Admin login
 
 - Username: `admin`
 - Password: `halloween`
 
-## GitHub Pages setup
+## Run locally
 
-1. Push this folder to a GitHub repository.
-2. In GitHub, open the repository.
-3. Go to `Settings` → `Pages`.
-4. Under `Build and deployment`, set:
-   - Source: `Deploy from a branch`
-   - Branch: `main` / `master`
-   - Folder: `/ (root)`
-5. Save.
-6. GitHub will give you a live Pages URL.
+1. Install dependencies:
+   - `npm install`
+2. Copy `.env.example` to `.env` and update values if needed.
+3. Start the server:
+   - `npm start`
+4. Open:
+   - `http://localhost:3000`
+
+## Public hosting setup
+
+This app is designed to support a public setup beyond your local network:
+
+- The frontend can be served from GitHub Pages or any static host.
+- The API and database must be hosted on a machine or service that is reachable by the public.
+- In `config.js`, set:
+  - `window.HALLOWEEN_APP_CONFIG.apiBaseUrl = 'https://your-public-backend-url';`
+
+If you keep the frontend and backend on the same machine, you can leave it blank and the app will use relative `/api/...` routes.
+
+## Exposing your PC to the internet
+
+If you want to run the backend from your own PC and let outside users access it:
+
+1. Start the app with `npm start`.
+2. Expose port `3000` using one of these methods:
+   - router port forwarding
+   - ngrok
+   - Cloudflare Tunnel
+3. Update `config.js` to point at the public tunnel URL.
+
+Example:
+
+```js
+window.HALLOWEEN_APP_CONFIG = {
+  apiBaseUrl: 'https://abc123.ngrok-free.app'
+};
+```
 
 ## Notes
 
-This app is intentionally simple and works well for a party because it does not require a backend or database. Everything is stored in the browser, so it is best for small local games and demos.
+- The app currently runs a shared Express + SQLite backend for multi-device play.
+- For production or long-term sharing, a hosted backend and a managed database are more reliable than running everything from a home PC.

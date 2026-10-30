@@ -3,20 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Halloween Party Safe / Not Safe</title>
+    <title>Halloween Party</title>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="app-shell">
       <header class="topbar">
         <span class="badge">Halloween Party</span>
-        <h1>Safe or Not Safe</h1>
       </header>
 
       <main class="grid">
         <section class="card player-card">
           <h2>Player Login</h2>
           <p>Choose your name and wait for the admin to assign your status.</p>
+
+          <div id="player-message" class="status-panel notice hidden" aria-live="polite"></div>
 
           <form id="player-login-form" class="login-form" action="playerPage.html" method="GET">
             <label for="player-name">Your name</label>
@@ -29,14 +30,13 @@
 
         <section class="card admin-card">
           <h2>Admin Login</h2>
-          <p>Default admin login: <strong>admin</strong> / <strong>halloween</strong></p>
 
           <form id="admin-login-form" class="login-form" action="adminPage.html" method="GET">
             <label for="admin-username">Username</label>
-            <input id="admin-username" type="text" value="admin" required />
+            <input id="admin-username" type="text" value="" required />
 
             <label for="admin-password">Password</label>
-            <input id="admin-password" type="password" value="halloween" required />
+            <input id="admin-password" type="password" value="" required />
 
             <button type="submit">Admin Access</button>
           </form>
@@ -44,6 +44,7 @@
       </main>
     </div>
 
+    <script src="config.js"></script>
     <script src="script.js"></script>
   </body>
 </html>
